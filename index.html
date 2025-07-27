@@ -1,0 +1,280 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bibliotheca Polyglotta - A multilingual corpus of historically important texts from various cultures and languages.">
+    <meta name="keywords" content="multilingual texts, historical documents, polyglot, library, ancient texts">
+    <meta name="author" content="University of Oslo, Norwegian Institute of Palaeography and Historical Philology">
+
+    <title>Bibliotheca Polyglotta</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+
+    <style>
+        :root {
+            --ha-primary: #2c3e50;
+            --ha-secondary: #34495e;
+            --ha-accent: #e74c3c;
+            --ha-gold: #f1c40f;
+            --ha-text: #2c3e50;
+            --ha-light: #ecf0f1;
+            --ha-dark: #1a252f;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--ha-light);
+            color: var(--ha-text);
+            line-height: 1.6;
+        }
+
+        .header-font {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .navbar-ha {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-ha .navbar-brand {
+            color: var(--ha-primary);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+        }
+
+        .navbar-ha .nav-link {
+            color: var(--ha-primary);
+            font-weight: 500;
+        }
+
+        .navbar-ha .nav-link:hover {
+            color: var(--ha-accent);
+        }
+
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 120px 0;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .search-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .library-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .library-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-img-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .footer {
+            background-color: var(--ha-primary);
+            color: white;
+            padding: 40px 0;
+            margin-top: 40px;
+        }
+
+        .info-section {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-ha sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-book me-2"></i>Bibliotheca Polyglotta
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/polyglotta/index.php" accesskey="1">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/polyglotta/admin/index.php">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://wiki.uio.no/hf/dmlf/index.php/Kategori:Polyglotta:Documentation">Documentation</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="header-font display-4 mb-4">Bibliotheca Polyglotta</h1>
+            <p class="lead mb-5">A multilingual corpus of historically important texts from world cultures</p>
+            
+            <div class="search-container">
+                <form id="searchForm" action="/polyglotta/index.php" method="get">
+                    <input type="hidden" name="page" value="search">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control form-control-lg" name="sokefelt" placeholder="Search across all texts...">
+                        <button class="btn btn-primary" type="submit">Search</button>
+                    </div>
+                    <div class="row g-2">
+                        <div class="col-md-6">
+                            <select name="searchmode" class="form-select">
+                                <option selected value="phrase">Search for exact phrase</option>
+                                <option value="phraseregex">Search for exact phrase (regex)</option>
+                                <option value="word">Search for every word in one record</option>
+                                <option value="free">Search for every word fragment in one record</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <select name="context" class="form-select">
+                                <option value="a" selected>Search in all libraries</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <a href="/polyglotta/index.php?page=asearch" class="btn btn-outline-secondary">Advanced search</a>
+                        <a href="https://wiki.uio.no/hf/dmlf/index.php/Kategori:Polyglotta:Documentation:SearchHelp" class="btn btn-link">Search help</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <section id="libraries" class="mb-5">
+            <h2 class="header-font text-center mb-5">Our Collections</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card library-card">
+                        <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" class="card-img" alt="Arabic Texts">
+                        <div class="card-img-overlay">
+                            <h5 class="card-title text-white">Arabic Texts</h5>
+                            <p class="card-text text-white-50">Contains a multilingual Quran in Arabic, English and Chinese</p>
+                            <a href="/polyglotta/index.php?page=library&bid=6" class="btn btn-sm btn-outline-light align-self-start">Explore</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card library-card">
+                        <img src="https://images.unsplash.com/photo-1584811644727-e2cdf7384c63?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" class="card-img" alt="Biblia">
+                        <div class="card-img-overlay">
+                            <h5 class="card-title text-white">Biblia</h5>
+                            <p class="card-text text-white-50">Biblical Books of the Old Testament in Hebrew, Greek, Latin, English</p>
+                            <a href="/polyglotta/index.php?page=library&bid=3" class="btn btn-sm btn-outline-light align-self-start">Explore</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card library-card">
+                        <img src="https://images.unsplash.com/photo-1542272201-b1ca555f8505?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" class="card-img" alt="Graeca et Latina">
+                        <div class="card-img-overlay">
+                            <h5 class="card-title text-white">Bibliotheca Polyglotta Graeca et Latina</h5>
+                            <p class="card-text text-white-50">Greek literature of antiquity with multilingual translations</p>
+                            <a href="/polyglotta/index.php?page=library&bid=1" class="btn btn-sm btn-outline-light align-self-start">Explore</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- More library cards here -->
+            </div>
+        </section>
+
+        <section class="info-section">
+            <h2 class="header-font mb-4">About Bibliotheca Polyglotta</h2>
+            <p>The <strong>Bibliotheca Polyglotta</strong> (BP) is a multilingual corpus of historically important texts. As such it is a resource to access the global history of concepts as displayed in a number of languages, and it demonstrates how concepts diffuse historically into new languages, and thus into new cultural contexts.</p>
+            
+            <p>The BP is in a phase of being constructed, and contains so far the following libraries:</p>
+            
+            <ul>
+                <li>The <strong>Thesaurus Literaturae Buddhicae</strong> (TLB) contains a number of Buddhist multilingual texts (Sanskrit, Chinese, Tibetan, English, etc.).</li>
+                <li><strong>Biblia</strong> contains the Biblical Books of the Old Testament in Hebrew, Greek, Latin, English, and the complete New Testament in Greek, Latin, English, etc.</li>
+                <li><strong>Arabic Texts</strong> contains a multilingual Quran, so far in Arabic, English and Chinese.</li>
+                <li>The <strong>Bibliotheca Polyglotta Graeca</strong> (BPG) contains the Greek literature of antiquity.</li>
+                <li><strong>The Universal Declaration of Human Rights</strong> (UDHR) is integrated as a distinct library.</li>
+                <li><strong>The Multilingual Ibsen</strong> (MI) makes available the numerous translations made of Henrik Ibsen's plays.</li>
+                <li><strong>Sanskrit-Persica</strong> will contain literature translated from Sanskrit into Persian.</li>
+            </ul>
+            
+            <p>The texts will be accompanied with a number of resources such as bibliographies, introductions, comments and images of the original manuscripts from where they are edited.</p>
+            
+            <p>The BP is also being developed as a tool for the publication of critical texts, where the lexicographical resources of the BP is available at the same time as the page mode will give the possibility for the full publication of new critical editions of any texts.</p>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="header-font">Bibliotheca Polyglotta</h5>
+                    <p>A research project at the Faculty of Humanities, University of Oslo.</p>
+                    <p>The copyrights for all the texts belongs to Jens Braarvig and the Norwegian Institute of Palaeography and Historical Philology.</p>
+                </div>
+                <div class="col-md-3">
+                    <h5>Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="http://www.hf.uio.no" class="text-white-50">Faculty of Humanities</a></li>
+                        <li><a href="http://www.hf.uio.no/ikos/english" class="text-white-50">Department of Culture Studies</a></li>
+                        <li><a href="http://instphi.org/" class="text-white-50">Norwegian Institute of Palaeography</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Contact</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="mailto:jens.braarvig@ikos.uio.no" class="text-white-50"><i class="bi bi-envelope me-2"></i>Email</a></li>
+                        <li><a href="http://www.hf.uio.no/tjenester/it" class="text-white-50"><i class="bi bi-code me-2"></i>IT Department</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-light">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p class="mb-0">Copyright © 2007-2023 University of Oslo, Norwegian Institute of Palaeography and Historical Philology</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-86407471-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-86407471-1', {
+            transport_url: 'https://w3prod-ipproxy.uio.no',
+            first_party_collection: true
+        });
+    </script>
+</body>
+</html>
